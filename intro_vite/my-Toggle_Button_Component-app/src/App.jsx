@@ -1,7 +1,7 @@
 import { useState } from 'react'
-
 import './App.css'
 import ChangeState from './components/changestate'
+
 
 function App() {
   let [state,setState] = useState("")
