@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Manager</title>
+     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        
+        
+      
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
+<script type="text/babel">
+
+    function Student({name,status}){
+        return (
+            <div className="container">
+                <p>Student Name : {name}</p>
+                <p>Student Status : {status}</p>
+            </div>
+        )
+    }
+    let {useState} = React;
+    function App(){
+        let [array,setArray] = useState([{id:403,name:"rohit",status:"Present"},{id:402,name:"hari",status:"Present"},{id:419,name:"virat",status:"Absent"},{id:427,name:"ranga",status:"Present"},{id:441,name:"Umar",status:"Absent"}])
+        let [form,setForm] = useState({id:"",name:"",status:""})
+        function addStudent(){
+            if(form.id && form.name && form.status){
+                setArray([...array,{...form,id:Number(form.id)}])
+                setForm({id:"",name:"",status:""})
+            }
+            else 
+                alert("Please Enter all the details...")
+        }
+        function handleChange(e) {
+                let  { name, value } = e.target;
+                setForm(prev => ({ ...prev, [name]: value }));
+        }
+        return (
+            <>
+                <div id="inputs">
+                    <label >
+                        Name: <input type="text" name="name" value={form.name} onChange={handleChange}/>
+                    </label>
+                    <label>
+                        ID : <input type="number" name="id" value={form.id} onChange={handleChange}/>
+                    </label>
+                    <label >
+                        Status : <input type="text" name="status" value={form.status} onChange={handleChange}/>
+                    </label>
+                    <button onClick={addStudent}>Add Student</button>
+                </div>
+                <div>
+                    {array.map((student,index)=>(
+                        <Student key={index} name={student.name} status={student.status}/>
+                    ))}
+                </div>
+            </>
+        )
+    }
+    let root = ReactDOM.createRoot(document.getElementById("root"))
+    root.render(<App/>)
+</script>

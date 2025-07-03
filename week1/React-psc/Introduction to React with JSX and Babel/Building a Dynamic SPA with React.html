@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>React SPA</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    nav {
+      background-color: #333;
+      padding: 10px;
+    }
+    nav button {
+      margin-right: 10px;
+      padding: 10px 15px;
+      background: none;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    nav button:hover {
+      text-decoration: underline;
+    }
+    .page {
+      padding: 30px;
+      font-size: 24px;
+      min-height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function App() {
+      const [activePage, setActivePage] = useState("Home");
+
+      const pageContent = {
+        Home: (
+          <div className="page" style={{ backgroundColor: "#f0f8ff" }}>
+            <h2>Welcome to Home</h2>
+            <p>This is the Home page content.</p>
+          </div>
+        ),
+        About: (
+          <div className="page" style={{ backgroundColor: "#ffe4e1" }}>
+            <h2>About Us</h2>
+            <p>This is the about us page </p>
+          </div>
+        ),
+        Contact: (
+          <div className="page" style={{ backgroundColor: "#e6ffe6" }}>
+            <h2>Contact Us</h2>
+            <p>You can reach us at umar@.com</p>
+          </div>
+        )
+      };
+
+      return (
+        <>
+       
+          <nav>
+            <button onClick={() => setActivePage("Home")}>Home</button>
+            <button onClick={() => setActivePage("About")}>About</button>
+            <button onClick={() => setActivePage("Contact")}>Contact</button>
+          </nav>
+          {pageContent[activePage] || <div className="page">Page not found.</div>}
+        </>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>

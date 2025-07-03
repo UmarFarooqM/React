@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
+
+<script type="text/babel">
+
+const {useState} = React;
+
+function Counter(){
+    const [c,setCount] = useState(0);
+
+   
+    function handleincrement(){
+        setCount(c+1)
+    }
+    function handledecrement(){
+        if(c>0)
+        setCount(c-1)
+    }
+    function handlereset(){
+        setCount(c-c)
+        setCount(0)
+    }
+
+    return(
+        <div> 
+            <h1> Count: {c}</h1>
+            
+            <hr />
+            <button onClick={handleincrement}> Increment</button>
+            
+             <button onClick={handledecrement}> Decrement</button>
+            
+              <button onClick={handlereset}> ResetCount</button>
+             
+              {c === 10 && <p> Goal Reached!</p>}
+
+        </div>
+    )
+};
+
+function App(){
+    return(
+        <> 
+        < Counter/>
+        </>
+    );
+}
+
+
+let root = ReactDOM.createRoot(document.getElementById("root"))
+root.render(<App/>)
+
+</script>

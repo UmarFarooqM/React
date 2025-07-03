@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementing Conditional Styling</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body{
+            text-align: center;
+        }
+        button{
+            width: 10%;
+            height: 8vh;
+            cursor: pointer;
+            border: 1px solid;
+            border-radius: 10px;
+        }
+        button:hover{
+            height: 8vh;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
+<script type="text/babel">
+
+    let {useState} = React;
+    function App(){
+        let [color,setColor] = useState("Green") 
+        document.body.style.backgroundColor=color
+        function changeColor(){
+            let newColor = color==="Green" ? "Yellow" : "Green" ;
+            // document.body.style.backgroundColor=newColor
+            setColor(newColor)
+            document.body.style.backgroundColor=newColor
+        }
+        return (
+            <>
+                <button onClick={changeColor} style={{backgroundColor:color}}>Change Color</button>
+                <p style={{color:"Red"}}> Color : {color}</p>
+            </>
+        )
+    }
+
+    let root  = ReactDOM.createRoot(document.getElementById("root"))
+    root.render(<App/>)
+</script>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img{
+            max-width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #container{
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 20px;
+
+            /* border: 2px solid black; */
+        }
+        #container>div{
+            flex-wrap: wrap-reverse;
+            align-items: center;
+            justify-items: center;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px dotted rgb(204, 0, 255);
+        }
+        #container>div>img{
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body onload="memes()">
+    
+  
+    <input type="text" id="ipsearch" placeholder="meme name">
+    <button id="btnsearch" > <search>search</button>
+    <button id="btnmemes" >memes</button>
+    <button id="btnsort">sort</button>
+     <br>
+    <hr>
+   
+    <br>
+    
+    <div id="container"></div>
+    
+
+</body>
+</html>
+
+<script>
+
+    async function memes(){
+        try {
+            let res = await fetch("https://api.imgflip.com/get_memes");
+            let da = await res.json();
+            // console.log(da)
+        //   console.log(da.data.memes)
+        let products = da.data.memes;
+    // console.log(products)
+            let container = document.getElementById("container")
+            let ipsearch = document.getElementById("ipsearch").value.trim()
+            let btnsearch = document.getElementById("btnsearch")
+            // console.log(ipsearch==products[1].name)
+
+            let sortbtn = document.getElementById("btnsort")
+            let allmemesbtn  = document.getElementById("btnmemes")
+
+            btnsearch.addEventListener('click',()=>{
+                 let ipsearch = document.getElementById("ipsearch").value.trim()
+                let searcharr= products.filter((ele)=> ele.name ===  ipsearch)
+                console.log(searcharr)
+                container.innerHTML=""     
+                searcharr.forEach((ele)=>{
+                    let div = document.createElement("div")
+                    div.innerHTML=""
+                    div.innerHTML =`<h1>${ele.name}</h1>
+                                    <img src="${ele.url}" alt="">`
+                    container.appendChild(div)
+                })
+            })
+            
+            // container.innerHTML=""
+            allmemesbtn.addEventListener('click',()=>{
+                container.innerHTML=""
+                // console.log(products)
+                products.forEach((ele)=>{
+                    let div = document.createElement("div")
+                    div.innerHTML = ""
+                div.innerHTML = `<h1>${ele.name}</h1>
+                                    <img src="${ele.url}" alt="">`
+                    container.appendChild(div)
+                })
+            })
+
+
+            sortbtn.addEventListener('click',()=>{
+                let sortarr = products.sort((a,b)=>{
+                    return a.name.localeCompare(b.name)
+                })
+                // console.log(sortarr)
+               container.innerHTML=""
+                sortarr.forEach((ele)=>{
+                    let div = document.createElement("div")
+                    div.innerHTML =""
+                    div.innerHTML = `<h1>${ele.name}</h1>
+                                    <img src="${ele.url}" alt="">` 
+                    container.appendChild(div)
+                })     
+            })
+
+
+            
+            } catch (error) {
+            console.log(error)
+        }finally{
+
+        }
+    
+    
+    }
+
+
+</script>

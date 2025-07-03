@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>React Axios API Demo</title>
+
+  
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <style>
+   
+  </style>
+</head>
+<body>
+ 
+  <div id="root"></div>
+
+  <!-- Our React Code -->
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    function App() {
+      const [users, setUsers] = useState([]);
+
+      // Step 1: Fetch data using Axios
+      // useEffect(()=>{},[])
+      useEffect(() => {
+        axios.get("https://jsonplaceholder.typicode.com/users")
+          .then((response) => {
+            setUsers(response.data); // Step 2: Store in state
+          })
+          .catch((error) => {
+            console.error("API fetch error:", error);
+          });
+      }, []);
+
+      // Step 3: Render the data
+      return (
+        <div>
+          <h2>User List:</h2>
+          {users.length === 0 ? (
+            <p>Loading users...</p>
+          ) : (
+            users.map((user) => (
+              <div key={user.id} className="user-card">
+                <h3>{user.name}</h3>
+                <p>Email: {user.email}</p>
+                <p>City: {user.address.city}</p>
+              </div>
+            ))
+          )}
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>

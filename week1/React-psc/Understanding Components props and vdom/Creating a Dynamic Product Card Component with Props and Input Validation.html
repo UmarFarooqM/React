@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Product Card Component</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body{
+            text-align: center;
+        }
+        button,input{
+            margin: 10px;
+            padding: 10px;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    
+    <div id="root">HIT</div>
+
+</body>
+</html>
+<script type="text/babel">
+    function ProductCard(props){
+        return (
+            <div>
+                <h4>Product Name : {props.name}</h4>
+                <img src={props.image} alt={props.name}/>
+                <p>Product Price : {props.price}</p>
+                <p>Discount : {props.discount}%</p>
+            </div>
+        )
+    }
+    
+    function App(){
+        let [product,setProduct]  = React.useState([])
+        let [form,setForm] = React.useState({name:"",price:"",image:"",discount:""})
+        function HandleChange(e){
+            let {id,value} = e.target
+            setForm((prev)=>({
+                ...prev,[id]:value
+            }))
+        }
+        function AddProduct(){
+            if(form.name && form.image && form.price && form.discount){
+                setProduct([...product,form])
+                setForm({name:"",price:"",image:"",discount:""})
+            }
+            else{
+                alert("Please Fill in all Fields....")
+            }
+        }
+        return (
+            <>
+            <div>
+                <input type="text" id="name" value={form.name} placeholder="Enter Product Name" onChange={HandleChange}/>
+                <input type="number" id="price" value={form.price} placeholder="Enter Product Price" onChange={HandleChange}/>
+                <input type="text" id="image" value={form.image} placeholder="Enter Image URL" onChange={HandleChange}/>
+                <input type="number" id="discount" value={form.discount} placeholder="Enter Discount" onChange={HandleChange}/>
+                <button onClick={AddProduct}>Add Product</button>  
+            </div>
+            <div>
+                {product.map((product,index)=>(
+                    <ProductCard key={index} {...product}/>
+                ))}
+                </div>
+            
+            </>
+            
+            
+        )
+    }
+
+    let root  = ReactDOM.createRoot(document.getElementById("root"))
+    root.render(<App/>)
+</script>

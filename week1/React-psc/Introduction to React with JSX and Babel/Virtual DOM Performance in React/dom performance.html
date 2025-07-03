@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="title">Dom performance</h1>
+    <input type="text" id="in">
+    <button id="change" onclick="changetitle()">changes</button>
+    <p> Count :<span id="count">0</span></p>
+</body>
+</html>
+
+<script>
+    
+    
+   let count=0
+    function changetitle(){
+        let title = document.getElementById("title")
+    let input = document.getElementById("in").value
+    let countvalue = document.getElementById("count")
+     title.innerText = input
+        count++
+        countvalue.innerText =count
+    }
+
+
+</script>

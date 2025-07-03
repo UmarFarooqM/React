@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch and Render Product Cards on Button Click</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body{
+            text-align: center;
+        }
+        #root{
+            display: grid;
+            grid-template-columns: repeat(2,400px);
+        }
+        #image{
+            width: 100%;
+            height: auto;
+            
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+</body>
+</html>
+<script type="text/babel">
+    let {useState} = React ;
+    function App(){
+        let [products,setProducts]  = useState([])
+        async function fetchProducts(){
+            let res = await fetch("https://fakestoreapi.com/products")
+            res = await res.json()
+            setProducts(res)
+        }
+        return (
+            <>
+                <h1>React API Cards</h1>
+                <button onClick={()=>setProducts([])}>Clear All</button>
+                <button onClick={fetchProducts}>Load Products</button>
+                
+                {products.map((product,i)=>(
+                    <div key={i} id="prodcut-card">
+                        <h3 key="love">Title : {product.title}</h3>
+                        <img id="image" key="i"  src={product.image} alt={product.title}/>
+                        <p key="u">Price : {product.price}</p>
+                    </div>
+                ))}
+            </>
+        )
+    }   
+    let root = ReactDOM.createRoot(document.getElementById("root"))
+    root.render(<App/>)
+</script>

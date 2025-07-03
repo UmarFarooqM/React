@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building a Reusable Card Component</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body{
+            text-align:center;
+        }
+        #card{
+            background-color: rgb(179, 209, 199);
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+   
+    <div id="root"></div>
+</body>
+</html>
+<script type="text/babel">
+    function CreateCard({title,content}){
+        return (
+            <div id="card">
+                <h3>Title : {title}</h3>
+                <div>{content}</div>
+            </div>
+        )
+    }
+    
+    function ContentLoaded(){
+        return (
+            <>
+                <p>Content : This is an emotional film which portrays a person who is struggling to make it big in life at a later stage in his life. This film motivates us with a strong message that it's never too late to achieve as long as there's hardwork and dedication</p>
+                <p>Released Year : 2019</p>
+            </>
+        )
+    }
+    function Card(){
+        return (
+            <>
+                <CreateCard title="dhoni" content={ContentLoaded()}/>
+                <CreateCard title="bahubali" content={ContentLoaded()}/>
+                <CreateCard title="cherutha" content={ContentLoaded()}/>
+            </>
+        )
+    }
+
+
+    let root = ReactDOM.createRoot(document.getElementById("root"))
+    root.render(<Card/>)
+</script>

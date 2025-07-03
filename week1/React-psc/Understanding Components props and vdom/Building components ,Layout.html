@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building components & Layout</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      
+        .container{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-self: center;
+            /* background-color: brown; */
+            padding-left: 200px;
+            
+        }
+        .container h1{
+            width: 500px;
+            /* margin: 10px; */
+        }
+        .container p{
+            margin-left: 50px;
+            font-size: 18px;
+            margin-right: 100px;
+        }
+        #root{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            
+        }
+        #root #card{
+            display: flex;
+            justify-content: space-between;
+            margin: 10px;
+            /* background-color: antiquewhite; */
+            height: 18vh;
+        }
+        #card h3{
+            font-weight: bold;
+            font-size: 25px;
+            margin-left: 200px;
+            margin-top: 40px;
+        }
+        #card p{
+            font-weight: bold;
+            font-size: 30px;
+            margin-top: 35px;
+        }
+        #card button{
+            background-color: rgb(146, 204, 238);
+            cursor: pointer;
+            border-radius: 10px;
+            height: 6vh;
+            padding: 10px;
+            border: none;
+            margin: 10px;
+            margin-top: 30px;
+            width: 10%;
+            margin-right: 150px;
+            color: rgb(105, 105, 230);
+        }
+        #card button:hover{
+            background-color: rgb(98, 98, 233);
+            color: white;
+        }
+        #card ul{
+            font-size: 18px;
+            gap: 5px;
+        }
+        #span-ele{
+            margin-left: 30px;
+        }
+    </style>
+</head>
+<body>
+    <footer>
+        <div class="container">
+            <h1>The Right Plan for <span  id="span-ele" style="color: blueviolet;">Your Business</span></h1>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit accusamus cupiditate, totam blanditiis fugit rerum ad ut voluptates adipisci quibusdam doloribus laborum ipsa eos dolore commodi.</p>
+        </div>
+    </footer>
+    <div id="root"></div>
+</body>
+</html>
+<script type="text/babel">
+    function LoadedData({title,cost,list}){
+        return (
+            <div id="card">  
+                <h3>{title}</h3>
+                <ul>
+                    {list.map((ele,index)=>(
+                        <li key={index}>✅{ele}</li>
+                    ))}
+                </ul>
+                <p>{cost}</p>
+                <button>Get Started</button>
+            </div>
+        )
+    }
+    function App(){
+    let list=["1 lorem ipsum","Lorem,ipsum dolor.","Monthly Updates"]
+        return (
+            <> 
+                <LoadedData title="Starter" cost="Free" list={list}/>
+                <LoadedData title="Lorem Plus" cost="$32.00" list={list}/>
+                <LoadedData title="Lorem Pro" cost="$50.00" list={list}/>
+            </>
+
+        )
+    }
+
+    let rendorElement = ReactDOM.createRoot(document.getElementById("root"))
+    rendorElement.render(<App/>)
+</script>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Beginner React Todo</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+    }
+    input, button {
+      padding: 8px;
+      margin: 5px;
+    }
+    .task {
+      margin: 10px 0;
+    }
+    .completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <h2> My Todo List</h2>
+  <div id="root"></div>
+
+  <script type="text/babel">
+
+    const { useState } = React;
+
+    function App() {
+      const [tasks, setTasks] = useState([]);
+      const [inputText, setInputText] = useState("");
+
+      function addTask() {
+        if (inputText === "") return;
+        const newTask = {
+          id: Date.now(),
+          text: inputText,
+          completed: false
+        };
+        setTasks([...tasks, newTask]);
+        setInputText("");
+      }
+
+      function toggleTask(id) {
+        const updatedTasks = tasks.map(task =>
+          task.id === id ? { ...task, completed: !task.completed } : task
+        );
+        setTasks(updatedTasks);
+      }
+
+      function deleteTask(id) {
+        const updatedTasks = tasks.filter(task => task.id !== id);
+        setTasks(updatedTasks);
+      }
+
+      return (
+        <div>
+          <input
+            type="text"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+            placeholder="Enter a task"
+          />
+          <button onClick={addTask}>Add</button>
+
+          {tasks.map(task => (
+            <div key={task.id} className="task">
+              <span
+                onClick={() => toggleTask(task.id)}
+                className={task.completed ? "completed" : ""}
+                style={{ cursor: "pointer" }}
+              >
+                {task.text}
+              </span>
+              <button onClick={() => deleteTask(task.id)} style={{ marginLeft: "10px" }}>
+                Delete
+              </button>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+
+  </script>
+</body>
+</html>

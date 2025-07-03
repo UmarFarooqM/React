@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic List of Users</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body{
+            text-align: center;
+        }
+        #form-div{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        input{
+            border: 1px solid ;
+            border-radius: 10px;
+            width: 20%;
+            height: 5vh;
+            margin: 10px;
+            padding: 10px;
+        }
+        button{
+            font-size: 16px;
+            width: 10%;
+            height: 8vh;
+            padding: 10px;
+            background-color: aqua;
+            border: none;
+            border-radius:10px ;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: rgb(104, 233, 136);
+        }
+        #card{
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            margin-left: 180px;
+            margin-right: 180px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+</body>
+</html>
+<script type="text/babel">
+    function App(){
+        let [userArray,setUser] = React.useState([]) // stores users info in the array
+        let [form,setForm] = React.useState({name:"",email:"",age:""}) // stores user data in form of object. initially it is empty
+        // form updation after typing
+        function UpdateForm(a){
+            let {id,value} = a.target
+            setForm((prev)=>({
+                ...prev,[id]:value
+            }))
+        }
+        function AddUser(){
+            if(form.name && form.email && form.age){
+                setUser([...userArray,form])
+                setForm({name:"",email:"",age:""})
+            }
+            else{
+                alert("Enter all input feilds...")
+            }
+        }
+        return (
+            <>
+                <div id="form-div">
+                    <input type="text" id="name" value={form.name} placeholder="Enter Name.." onChange={UpdateForm}/>
+                    <input type="email" id="email" value={form.email} placeholder="Enter Email.." onChange={UpdateForm}/>
+                    <input type="number" id="age" value={form.age} placeholder="Enter Age..." onChange={UpdateForm}/>
+                    <button id="add-btn" onClick={AddUser}>Add User</button>
+                </div>
+                <div>
+                    <UserCard array={userArray}/>
+                    
+                    </div>
+            </>
+        )
+    }
+    function UserCard({array}){
+        return (
+            <div id="card">
+            {array.map((user,index)=>(
+                <>
+                    <p>UserName : {user.name}</p>
+                    <p>UserEmail : {user.email}</p>
+                    <p>UserAge : {user.age}</p>
+                </>
+            ))}
+            </div>
+        )
+    }
+
+
+
+    let rendoringElement = ReactDOM.createRoot(document.getElementById("root"))
+    rendoringElement.render(<App/>)
+</script>

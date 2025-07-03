@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Todo List App</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        .inputs{
+            display: flex;
+            gap: 10px;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="root">Hello from Dom</div>
+</body>
+</html>
+<script type="text/babel">
+    function List(){
+        let [list,setList] = React.useState(["Buy milk", "Study React"])
+        let [task,setTask] = React.useState("")
+        if(list.length==0) alert("No Tasks available.")
+        function addTask(){
+            if(task.trim()!==""){
+                setList([...list,task])
+                setTask("")
+            }
+        }
+        function clearAll(){
+            setList([])
+        }
+        return (
+            <>
+                <div class="inputs">
+                    <label >
+                        Task : <input type="text" name="task" value = {task}  onChange={(e)=>setTask(e.target.value)} />
+                    </label>
+                    <button onClick={addTask}>Add Task</button>
+                    <button onClick={clearAll}>Clear All</button>
+                </div>
+                <div class="container">
+                       {list.map((task,index)=>(
+                        <App key={index} task={task}/>
+                       ))} 
+                </div>
+            </>
+        )
+    }
+    function App({task}){
+        return (
+            <p>Task : {task}</p>    
+        )
+    }
+    let root  = ReactDOM.createRoot(document.getElementById("root"))
+    root.render(<List/>)
+</script>
