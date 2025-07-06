@@ -4,6 +4,22 @@
   padding: 2rem;
   text-align: center;
 }
+#user {
+  display: flex;
+  gap: 20px; 
+  justify-content: center;
+  flex-wrap: wrap; /* ensures responsiveness */
+}
+
+#divdetails{
+  width: 45%; 
+  border: 1px solid #d60f0f;
+  padding: 10px;
+  margin: 50px;
+  border-radius: 8px;
+
+}
+
 
 .logo {
   height: 6em;

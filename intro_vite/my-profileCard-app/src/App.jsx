@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { ProfileCard } from './components/profilecard'
+import { ProfileCard } from './component/profileCard'
 
 function App() {
   
