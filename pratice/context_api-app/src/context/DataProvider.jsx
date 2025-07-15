@@ -8,7 +8,6 @@ export function DataProvider({children}){
             error:null,
             data:null
         })
-
         async function fetchData(){
 
             setState({...state, loading:true})

@@ -12,7 +12,7 @@ function App() {
   const dispatch = useDispatch();
   const projects = useSelector(state => state.projects);
   const [projectName, setProjectName] = useState('');
-  const [taskInputs, setTaskInputs] = useState({}); // projectId: taskText
+  const [taskInputs, setTaskInputs] = useState({}); 
 
   const handleAddProject = () => {
     if (projectName.trim()) {
