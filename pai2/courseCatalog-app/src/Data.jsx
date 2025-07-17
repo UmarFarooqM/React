@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 
 function Data() {
   let [currentpage,setCurrentpage] = useState(1);
    const [data,useData] = useState([])
+   const [search,setSearch]=useState("")
+   const ref = useRef()
   let limit =5
          async function fetchData(){
               try {
@@ -17,26 +19,28 @@ function Data() {
               }
          }
          console.log(data.products)
-         fetchData()
-      // useEffect(()=>
-      //     fetchData()
-      //     ,[])
+      useEffect(()=>
+          fetchData()
+          ,[])
   
       let firstindexof = currentpage - limit
       let lastindexof = currentpage * limit
-
+    
+      data.filter((ele)=> ele == data.title)
       products = data.slice(firstindexof,lastindexof)
 
     return (
       <div>
         {!data && <p> loading...</p>}
           <h1>To do list</h1>
+          <input type="text" placeholder='search productname'   value={(e)=> setSearch(search)} onChange={(e)=> e.target.value}/>
         {products.map((ele)=>{
           <ul key={ele.id}>
               <li> {ele.title}</li>
-
-              <button onClick={(prev)=>setCurrentpage(prev-1) } >prev</button>
-               <button onClick={(prev)=>setCurrentpage(prev+1) } >next</button>
+              <li>{ele.price}</li>
+              <li>{ele.thumbnail}</li>
+              <button onClick={()=>setCurrentpage(currentpage-1) } disabled={currentpage==1} >prev</button>
+               <button onClick={()=>setCurrentpage(currentpage+1) } >next</button>
           </ul>
         })}
       </div>
